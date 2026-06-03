@@ -12,272 +12,279 @@ mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
 app.get("/", (req, res) => {
-  res.send(`
-  <!DOCTYPE html>
-  <html>
-  <head>
-    <title>MY FAMILY</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>
-      body{
-        font-family:Arial,sans-serif;
-        background:#0f172a;
-        color:white;
-        display:flex;
-        justify-content:center;
-        align-items:center;
-        height:100vh;
-        margin:0;
-        text-align:center;
-      }
+res.send(`
 
-      .box{
-        padding:30px;
-      }
+  <!DOCTYPE html>    <html>  
+  <head>  
+    <title>MY FAMILY</title>  
+    <meta name="viewport" content="width=device-width, initial-scale=1">  
+    <style>  
+      body{  
+        font-family:Arial,sans-serif;  
+        background:#0f172a;  
+        color:white;  
+        display:flex;  
+        justify-content:center;  
+        align-items:center;  
+        height:100vh;  
+        margin:0;  
+        text-align:center;  
+      }  .box{  
+    padding:30px;  
+  }  
 
-      h1{
-        font-size:3rem;
-      }
+  h1{  
+    font-size:3rem;  
+  }  
 
-      p{
-        opacity:0.8;
-      }
+  p{  
+    opacity:0.8;  
+  }  
 
-      button{
-        padding:12px 25px;
-        border:none;
-        border-radius:8px;
-        background:#22c55e;
-        color:white;
-        font-size:16px;
-        cursor:pointer;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="box">
-      <h1>MY FAMILY</h1>
-      <p>Welcome to our family chat room.</p>
-      <button>Coming Soon</button>
-    </div>
-  </body>
-  </html>
-  `);
-});
+  button{  
+    padding:12px 25px;  
+    border:none;  
+    border-radius:8px;  
+    background:#22c55e;  
+    color:white;  
+    font-size:16px;  
+    cursor:pointer;  
+  }  
+</style>
 
-const PORT = process.env.PORT || 3000;
+  </head>  
+  <body>  
+    <div class="box">  
+      <h1>MY FAMILY</h1>  
+      <p>Welcome to our family chat room.</p>  
+      <button>Coming Soon</button>  
+    </div>  
+  </body>  
+  </html>  
+  `);  
+});  const PORT = process.env.PORT || 3000;
 app.get("/register", (req, res) => {
-  res.sendFile(__dirname + "/views/register.html");
+res.sendFile(__dirname + "/views/register.html");
 });
 app.get("/login", (req, res) => {
-  res.sendFile(__dirname + "/views/login.html");
+res.sendFile(__dirname + "/views/login.html");
 });
 const User = require("./models/User.js");
 const Post = require("./models/Post.js");
 const Comment = require("./models/Comment.js");
 app.post("/register", async (req, res) => {
-  try {
-    const { username, email, password } = req.body;
+try {
+const { username, email, password } = req.body;
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+const hashedPassword = await bcrypt.hash(password, 10);
 
 const user = new User({
-  username,
-  email,
-  password: hashedPassword
+username,
+email,
+password: hashedPassword
 });
 
-    await user.save();
+await user.save();  
 
-    res.send("Account created successfully!");
-  } catch (err) {
-  console.log("REGISTER ERROR:", err);
-  res.send(err.message);
-  }
+res.send("Account created successfully!");
+
+} catch (err) {
+console.log("REGISTER ERROR:", err);
+res.send(err.message);
+}
 });
 app.post("/login", async (req, res) => {
-  try {
-    const { email, password } = req.body;
+try {
+const { email, password } = req.body;
 
-    const user = await User.findOne({ email });
+const user = await User.findOne({ email });  
 
-    if (!user) {
-      return res.send("User not found");
-    }
+if (!user) {  
+  return res.send("User not found");  
+}  
 
-    const match = await bcrypt.compare(password, user.password);
+const match = await bcrypt.compare(password, user.password);  
 
-    if (!match) {
-      return res.send("Incorrect password");
-    }
+if (!match) {  
+  return res.send("Incorrect password");  
+}  
 
-    res.redirect("/family");
-  } catch (err) {
-    console.log("LOGIN ERROR:", err);
-    res.send(err.message);
-  }
+res.redirect("/family");
+
+} catch (err) {
+console.log("LOGIN ERROR:", err);
+res.send(err.message);
+}
 });
 app.post("/post", async (req, res) => {
-  try {
-    const { username, content } = req.body;
+try {
+const { username, content } = req.body;
 
-    const post = new Post({
-      username,
-      content
-    });
+const post = new Post({  
+  username,  
+  content  
+});  
 
-    await post.save();
+await post.save();  
 
-    res.redirect("/family");
-  } catch (err) {
-    console.log(err);
-    res.send(err.message);
-  }
+res.redirect("/family");
+
+} catch (err) {
+console.log(err);
+res.send(err.message);
+}
 });
 app.post("/like/:id", async (req, res) => {
-  try {
-    await Post.findByIdAndUpdate(
-      req.params.id,
-      { $inc: { likes: 1 } }
-    );
+try {
+await Post.findByIdAndUpdate(
+req.params.id,
+{ $inc: { likes: 1 } }
+);
 
-    res.redirect("/family");
-  } catch (err) {
-    console.log(err);
-    res.send(err.message);
-  }
+res.redirect("/family");
+
+} catch (err) {
+console.log(err);
+res.send(err.message);
+}
 });
 app.post("/comment/:id", async (req, res) => {
-  try {
-    const { username, content } = req.body;
+try {
+const { username, content } = req.body;
 
-    const comment = new Comment({
-      postId: req.params.id,
-      username,
-      content
-    });
+const comment = new Comment({  
+  postId: req.params.id,  
+  username,  
+  content  
+});  
 
-    await comment.save();
+await comment.save();  
 
-    res.redirect("/family");
-  } catch (err) {
-    console.log(err);
-    res.send(err.message);
-  }
+res.redirect("/family");
+
+} catch (err) {
+console.log(err);
+res.send(err.message);
+}
 });
 app.get("/family", async (req, res) => {
-  const posts = await Post.find().sort({ createdAt: -1 });
+const posts = await Post.find().sort({ createdAt: -1 });
+const comments = await Comment.find();
 
-  let postHtml = "";
+let postHtml = "";
 
-  posts.forEach(post => {
-    postHtml += `
-      <div style="
-        background:#1e293b;
-        padding:15px;
-        margin:10px;
-        border-radius:10px;
-      ">
-        <h3>${post.username}</h3>
-<p>${post.content}</p>
+posts.forEach(post => {
 
-<p>❤️ ${post.likes || 0} Likes</p>
+let commentHtml = "";
 
-<form method="POST" action="/like/${post._id}">
-  <button type="submit">
-    ❤️ Like
-  </button>
-</form>
-<form method="POST" action="/comment/${post._id}">
-  <input
-    type="text"
-    name="username"
-    placeholder="Your Name"
-    required
-  >
+comments.forEach(comment => {
+if (comment.postId === post._id.toString()) {
+commentHtml +=   <div style="   margin-left:20px;   margin-top:10px;   padding:10px;   background:#334155;   border-radius:8px;   ">   <strong>${comment.username}</strong>   <p>${comment.content}</p>   </div>  ;
+}
+});
+postHtml += `
+<div style="  
+background:#1e293b;  
+padding:15px;  
+margin:10px;  
+border-radius:10px;  
+">
+<h3>${post.username}</h3>
 
-  <br><br>
+<p>${post.content}</p>  <p>❤️ ${post.likes || 0} Likes</p>  <form method="POST" action="/like/${post._id}">  
+  <button type="submit">  
+    ❤️ Like  
+  </button>  
+</form>  
+<form method="POST" action="/comment/${post._id}">  
+  <input  
+    type="text"  
+    name="username"  
+    placeholder="Your Name"  
+    required  
+  >  <br><br>
 
-  <input
-    type="text"
-    name="content"
-    placeholder="Write a comment..."
-    required
-  >
+<input
+type="text"
+name="content"
+placeholder="Write a comment..."
+required
 
-  <br><br>
+> 
 
-  <button type="submit">
-    💬 Comment
-  </button>
-</form>
-      </div>
-    `;
-  });
+<br><br>
 
-  res.send(`
-    <html>
-    <head>
-      <title>MY FAMILY</title>
-      <style>
-        body{
-          font-family:Arial;
-          background:#0f172a;
-          color:white;
-          max-width:700px;
-          margin:auto;
-          padding:20px;
-        }
+  <button type="submit">  
+    💬 Comment  
+  </button>  
+</form>  <h4>💬 Comments</h4>  
+${commentHtml}  
+      </div>  
+    `;  
+  });  res.send(`
+<html>
+<head>
+<title>MY FAMILY</title>
+<style>
+body{
+font-family:Arial;
+background:#0f172a;
+color:white;
+max-width:700px;
+margin:auto;
+padding:20px;
+}
 
-        textarea{
-          width:100%;
-          height:100px;
-          border-radius:8px;
-        }
+textarea{  
+      width:100%;  
+      height:100px;  
+      border-radius:8px;  
+    }  
 
-        button{
-          margin-top:10px;
-          padding:10px 20px;
-          background:#22c55e;
-          color:white;
-          border:none;
-          border-radius:8px;
-        }
-      </style>
-    </head>
-    <body>
+    button{  
+      margin-top:10px;  
+      padding:10px 20px;  
+      background:#22c55e;  
+      color:white;  
+      border:none;  
+      border-radius:8px;  
+    }  
+  </style>  
+</head>  
+<body>  
 
-      <h1>MY FAMILY ❤️</h1>
+  <h1>MY FAMILY ❤️</h1>  
 
-      <form method="POST" action="/post">
-        <input
-          type="text"
-          name="username"
-          placeholder="Your Name"
-          required
-        >
+  <form method="POST" action="/post">  
+    <input  
+      type="text"  
+      name="username"  
+      placeholder="Your Name"  
+      required  
+    >  
 
-        <br><br>
+    <br><br>  
 
-        <textarea
-          name="content"
-          placeholder="What's on your mind?"
-          required
-        ></textarea>
+    <textarea  
+      name="content"  
+      placeholder="What's on your mind?"  
+      required  
+    ></textarea>  
 
-        <br>
+    <br>  
 
-        <button>Create Post</button>
-      </form>
+    <button>Create Post</button>  
+  </form>  
 
-      <hr>
+  <hr>  
 
-      ${postHtml}
+  ${postHtml}  
 
-    </body>
-    </html>
-  `);
+</body>  
+</html>
+
+`);
 });
 app.listen(PORT, () => {
-  console.log("Server running on port " + PORT);
+console.log("Server running on port " + PORT);
 });
