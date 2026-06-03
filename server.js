@@ -71,7 +71,7 @@ app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/views/login.html");
 });
 const User = require("./models/User");
-const Post = require("./models/Post");
+const Post = require("./models/post");
 
 app.post("/register", async (req, res) => {
   try {
