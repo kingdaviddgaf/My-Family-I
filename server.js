@@ -115,6 +115,7 @@ app.post("/login", async (req, res) => {
     res.send(err.message);
   }
 });
+app.post("/post"
 app.get("/family", async (req, res) => {
   const posts = await Post.find().sort({ createdAt: -1 });
 
