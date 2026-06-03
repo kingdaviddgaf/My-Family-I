@@ -188,6 +188,29 @@ app.get("/family", async (req, res) => {
     ❤️ Like
   </button>
 </form>
+<form method="POST" action="/comment/${post._id}">
+  <input
+    type="text"
+    name="username"
+    placeholder="Your Name"
+    required
+  >
+
+  <br><br>
+
+  <input
+    type="text"
+    name="content"
+    placeholder="Write a comment..."
+    required
+  >
+
+  <br><br>
+
+  <button type="submit">
+    💬 Comment
+  </button>
+</form>
       </div>
     `;
   });
