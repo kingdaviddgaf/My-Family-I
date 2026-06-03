@@ -1,6 +1,8 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+
+console.log("MY FAMILY APP STARTING...");
 const app = express();
 const authRoutes = require("./routes/auth");
 app.use(express.urlencoded({ extended: true }));
