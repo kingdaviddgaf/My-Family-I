@@ -2,8 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 
 const app = express();
+const authRoutes = require("./routes/auth");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use("/auth", authRoutes);
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
 .catch(err => console.log(err));
