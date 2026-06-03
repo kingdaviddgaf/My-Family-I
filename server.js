@@ -70,8 +70,8 @@ app.get("/register", (req, res) => {
 app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/views/login.html");
 });
-const User = require("./models/User");
-const Post = require("./models/Post");
+const User = require("./models/User.js");
+const Post = require("./models/Post.js");
 
 app.post("/register", async (req, res) => {
   try {
