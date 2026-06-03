@@ -92,6 +92,28 @@ const user = new User({
   res.send(err.message);
   }
 });
+app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.send("User not found");
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) {
+      return res.send("Incorrect password");
+    }
+
+    res.send("Login successful!");
+  } catch (err) {
+    console.log("LOGIN ERROR:", err);
+    res.send(err.message);
+  }
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
