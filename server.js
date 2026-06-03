@@ -68,6 +68,25 @@ app.get("/register", (req, res) => {
 app.get("/login", (req, res) => {
   res.sendFile(__dirname + "/views/login.html");
 });
+const User = require("./models/User");
+
+app.post("/register", async (req, res) => {
+  try {
+    const { username, email, password } = req.body;
+
+    const user = new User({
+      username,
+      email,
+      password
+    });
+
+    await user.save();
+
+    res.send("Account created successfully!");
+  } catch (err) {
+    res.send("Registration failed.");
+  }
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
