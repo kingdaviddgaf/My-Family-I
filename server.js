@@ -4,8 +4,55 @@ const app = express();
 
 app.get("/", (req, res) => {
   res.send(`
-    <h1>MY FAMILY</h1>
-    <p>Chat app is coming soon.</p>
+  <!DOCTYPE html>
+  <html>
+  <head>
+    <title>MY FAMILY</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+      body{
+        font-family:Arial,sans-serif;
+        background:#0f172a;
+        color:white;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        height:100vh;
+        margin:0;
+        text-align:center;
+      }
+
+      .box{
+        padding:30px;
+      }
+
+      h1{
+        font-size:3rem;
+      }
+
+      p{
+        opacity:0.8;
+      }
+
+      button{
+        padding:12px 25px;
+        border:none;
+        border-radius:8px;
+        background:#22c55e;
+        color:white;
+        font-size:16px;
+        cursor:pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <h1>MY FAMILY</h1>
+      <p>Welcome to our family chat room.</p>
+      <button>Coming Soon</button>
+    </div>
+  </body>
+  </html>
   `);
 });
 
