@@ -161,7 +161,15 @@ app.get("/family", async (req, res) => {
         border-radius:10px;
       ">
         <h3>${post.username}</h3>
-        <p>${post.content}</p>
+<p>${post.content}</p>
+
+<p>❤️ ${post.likes || 0} Likes</p>
+
+<form method="POST" action="/like/${post._id}">
+  <button type="submit">
+    ❤️ Like
+  </button>
+</form>
       </div>
     `;
   });
