@@ -147,6 +147,24 @@ app.post("/like/:id", async (req, res) => {
     res.send(err.message);
   }
 });
+app.post("/comment/:id", async (req, res) => {
+  try {
+    const { username, content } = req.body;
+
+    const comment = new Comment({
+      postId: req.params.id,
+      username,
+      content
+    });
+
+    await comment.save();
+
+    res.redirect("/family");
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.get("/family", async (req, res) => {
   const posts = await Post.find().sort({ createdAt: -1 });
 
