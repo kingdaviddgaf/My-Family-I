@@ -115,30 +115,85 @@ app.post("/login", async (req, res) => {
     res.send(err.message);
   }
 });
-app.get("/family", (req, res) => {
+app.get("/family", async (req, res) => {
+  const posts = await Post.find().sort({ createdAt: -1 });
+
+  let postHtml = "";
+
+  posts.forEach(post => {
+    postHtml += `
+      <div style="
+        background:#1e293b;
+        padding:15px;
+        margin:10px;
+        border-radius:10px;
+      ">
+        <h3>${post.username}</h3>
+        <p>${post.content}</p>
+      </div>
+    `;
+  });
+
   res.send(`
     <html>
-      <head>
-        <title>MY FAMILY</title>
-        <style>
-          body{
-            font-family:Arial;
-            background:#0f172a;
-            color:white;
-            text-align:center;
-            padding-top:100px;
-          }
+    <head>
+      <title>MY FAMILY</title>
+      <style>
+        body{
+          font-family:Arial;
+          background:#0f172a;
+          color:white;
+          max-width:700px;
+          margin:auto;
+          padding:20px;
+        }
 
-          h1{
-            color:#22c55e;
-          }
-        </style>
-      </head>
-      <body>
-        <h1>Welcome to MY FAMILY ❤️</h1>
-        <p>You have successfully logged in.</p>
-        <p>Family chat features coming soon.</p>
-      </body>
+        textarea{
+          width:100%;
+          height:100px;
+          border-radius:8px;
+        }
+
+        button{
+          margin-top:10px;
+          padding:10px 20px;
+          background:#22c55e;
+          color:white;
+          border:none;
+          border-radius:8px;
+        }
+      </style>
+    </head>
+    <body>
+
+      <h1>MY FAMILY ❤️</h1>
+
+      <form method="POST" action="/post">
+        <input
+          type="text"
+          name="username"
+          placeholder="Your Name"
+          required
+        >
+
+        <br><br>
+
+        <textarea
+          name="content"
+          placeholder="What's on your mind?"
+          required
+        ></textarea>
+
+        <br>
+
+        <button>Create Post</button>
+      </form>
+
+      <hr>
+
+      ${postHtml}
+
+    </body>
     </html>
   `);
 });
