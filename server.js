@@ -95,46 +95,7 @@ res.send(err.message);
 }
 });
 app.post("/login", async (req, res) => {
-  app.post("/reply/:id", async (req, res) => {
-  try {
-    const { username, content } = req.body;
-
-    const reply = new Reply({
-      commentId: req.params.id,
-      username,
-      content
-    });
-
-    await reply.save();
-
-    res.redirect("/family");
-  } catch (err) {
-    console.log(err);
-    res.send(err.message);
-  }
-});
-try {
-const { email, password } = req.body;
-
-const user = await User.findOne({ email });  
-
-if (!user) {  
-  return res.send("User not found");  
-}  
-
-const match = await bcrypt.compare(password, user.password);  
-
-if (!match) {  
-  return res.send("Incorrect password");  
-}  
-
-res.redirect("/family");
-
-} catch (err) {
-console.log("LOGIN ERROR:", err);
-res.send(err.message);
-}
-});
+  
 app.post("/post", async (req, res) => {
 try {
 const { username, content } = req.body;
@@ -175,7 +136,25 @@ const comment = new Comment({
   postId: req.params.id,  
   username,  
   content  
-});  
+}); 
+  app.post("/reply/:id", async (req, res) => {
+  try {
+    const { username, content } = req.body;
+
+    const reply = new Reply({
+      commentId: req.params.id,
+      username,
+      content
+    });
+
+    await reply.save();
+
+    res.redirect("/family");
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 
 await comment.save();  
 
@@ -200,17 +179,42 @@ let commentHtml = "";
 comments.forEach(comment => {
   if (comment.postId === post._id.toString()) {
     commentHtml += `
-      <div style="
-        margin-left:20px;
-        margin-top:10px;
-        padding:10px;
-        background:#334155;
-        border-radius:8px;
-      ">
-        <strong>${comment.username}</strong>
-        <p>${comment.content}</p>
-      </div>
-    `;
+  <div style="
+    margin-left:20px;
+    margin-top:10px;
+    padding:10px;
+    background:#334155;
+    border-radius:8px;
+  ">
+    <strong>${comment.username}</strong>
+    <p>${comment.content}</p>
+
+    <form method="POST" action="/reply/${comment._id}">
+      <input
+        type="text"
+        name="username"
+        placeholder="Your Name"
+        required
+      >
+
+      <br><br>
+
+      <input
+        type="text"
+        name="content"
+        placeholder="Write a reply..."
+        required
+      >
+
+      <br><br>
+
+      <button type="submit">
+        ↩️ Reply
+      </button>
+    </form>
+
+  </div>
+`;
   }
 });
 postHtml += `
