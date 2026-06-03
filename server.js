@@ -72,6 +72,7 @@ res.sendFile(__dirname + "/views/login.html");
 const User = require("./models/User.js");
 const Post = require("./models/Post.js");
 const Comment = require("./models/Comment.js");
+const Reply = require("./models/Reply.js");
 app.post("/register", async (req, res) => {
 try {
 const { username, email, password } = req.body;
