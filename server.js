@@ -95,6 +95,24 @@ res.send(err.message);
 }
 });
 app.post("/login", async (req, res) => {
+  app.post("/reply/:id", async (req, res) => {
+  try {
+    const { username, content } = req.body;
+
+    const reply = new Reply({
+      commentId: req.params.id,
+      username,
+      content
+    });
+
+    await reply.save();
+
+    res.redirect("/family");
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 try {
 const { email, password } = req.body;
 
