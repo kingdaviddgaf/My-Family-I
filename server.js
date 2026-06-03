@@ -108,11 +108,38 @@ app.post("/login", async (req, res) => {
       return res.send("Incorrect password");
     }
 
-    res.send("Login successful!");
+    res.redirect("/family");
   } catch (err) {
     console.log("LOGIN ERROR:", err);
     res.send(err.message);
   }
+});
+app.get("/family", (req, res) => {
+  res.send(`
+    <html>
+      <head>
+        <title>MY FAMILY</title>
+        <style>
+          body{
+            font-family:Arial;
+            background:#0f172a;
+            color:white;
+            text-align:center;
+            padding-top:100px;
+          }
+
+          h1{
+            color:#22c55e;
+          }
+        </style>
+      </head>
+      <body>
+        <h1>Welcome to MY FAMILY ❤️</h1>
+        <p>You have successfully logged in.</p>
+        <p>Family chat features coming soon.</p>
+      </body>
+    </html>
+  `);
 });
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
