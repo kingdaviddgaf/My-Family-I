@@ -86,7 +86,8 @@ app.post("/register", async (req, res) => {
 
     res.send("Account created successfully!");
   } catch (err) {
-    res.send("Registration failed.");
+  console.log("REGISTER ERROR:", err);
+  res.send(err.message);
   }
 });
 app.listen(PORT, () => {
