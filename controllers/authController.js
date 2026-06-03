@@ -23,6 +23,8 @@ exports.register = async (req, res) => {
 
     res.send("Account created successfully!");
   } catch (error) {
-    res.send("Registration failed");
+  console.log(error);
+  res.send(error.message);
+  }
   }
 };
