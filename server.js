@@ -186,14 +186,6 @@ app.post("/reply/:id", async (req, res) => {
     res.send(err.message);
   }
 });
-    await reply.save();
-
-    res.redirect("/family");
-  } catch (err) {
-    console.log(err);
-    res.send(err.message);
-  }
-});
 
 await comment.save();  
 
