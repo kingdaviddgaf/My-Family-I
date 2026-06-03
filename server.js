@@ -115,7 +115,23 @@ app.post("/login", async (req, res) => {
     res.send(err.message);
   }
 });
-app.post("/post"
+app.post("/post", async (req, res) => {
+  try {
+    const { username, content } = req.body;
+
+    const post = new Post({
+      username,
+      content
+    });
+
+    await post.save();
+
+    res.redirect("/family");
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.get("/family", async (req, res) => {
   const posts = await Post.find().sort({ createdAt: -1 });
 
