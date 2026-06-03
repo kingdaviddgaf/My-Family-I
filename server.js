@@ -189,7 +189,8 @@ res.send(err.message);
 app.get("/family", async (req, res) => {
 const posts = await Post.find().sort({ createdAt: -1 });
 const comments = await Comment.find();
-
+const replies = await Reply.find();
+  
 let postHtml = "";
 
 posts.forEach(post => {
