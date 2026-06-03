@@ -95,6 +95,28 @@ res.send(err.message);
 }
 });
 app.post("/login", async (req, res) => {
+  try {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.send("User not found");
+    }
+
+    const match = await bcrypt.compare(password, user.password);
+
+    if (!match) {
+      return res.send("Incorrect password");
+    }
+
+    res.redirect("/family");
+
+  } catch (err) {
+    console.log("LOGIN ERROR:", err);
+    res.send(err.message);
+  }
+});
   
 app.post("/post", async (req, res) => {
 try {
@@ -137,7 +159,16 @@ const comment = new Comment({
   username,  
   content  
 }); 
-  app.post("/reply/:id", async (req, res) => {
+  
+    await comment.save();
+
+    res.redirect("/family");
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
+app.post("/reply/:id", async (req, res) => {
   try {
     const { username, content } = req.body;
 
@@ -147,6 +178,14 @@ const comment = new Comment({
       content
     });
 
+    await reply.save();
+
+    res.redirect("/family");
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
     await reply.save();
 
     res.redirect("/family");
