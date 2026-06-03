@@ -134,6 +134,19 @@ app.post("/post", async (req, res) => {
     res.send(err.message);
   }
 });
+app.post("/like/:id", async (req, res) => {
+  try {
+    await Post.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { likes: 1 } }
+    );
+
+    res.redirect("/family");
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.get("/family", async (req, res) => {
   const posts = await Post.find().sort({ createdAt: -1 });
 
