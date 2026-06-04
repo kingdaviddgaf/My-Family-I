@@ -110,7 +110,27 @@ app.post("/login", async (req, res) => {
       return res.send("Incorrect password");
     }
 
-    res.redirect("/family");
+    const token = jwt.sign(
+  {
+    userId: user._id,
+    username: user.username
+  },
+  "myfamilysecret"
+);
+
+res.send(`
+<h2>Login Successful</h2>
+
+<p>Welcome ${user.username}</p>
+
+<p>Token:</p>
+
+<textarea rows="8" cols="50">${token}</textarea>
+
+<br><br>
+
+<a href="/family">Go To Family</a>
+`);
 
   } catch (err) {
     console.log("LOGIN ERROR:", err);
