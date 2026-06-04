@@ -230,7 +230,17 @@ replies.forEach(reply => {
         background:#475569;
         border-radius:8px;
       ">
-        <strong>${reply.username}</strong>
+        <strong>
+  <a
+    href="/profile/${reply.username}"
+    style="
+      color:#60a5fa;
+      text-decoration:none;
+    "
+  >
+    👤 ${reply.username}
+  </a>
+</strong>
         <p>${reply.content}</p>
       </div>
     `;
