@@ -475,33 +475,7 @@ res.send(err.message);
 }
 });
 
-        <p>${user.bio || "No bio yet"}</p>
-
-        <p>Total Posts: ${userPosts.length}</p>
-
-        <a href="/edit-profile/${encodeURIComponent(user.username)}">
-          Edit Profile
-        </a>
-
-        <br><br>
-
-        <a href="/family">
-          Back To Family
-        </a>
-
-        <hr>
-
-        ${postsHtml}
-
-      </body>
-      </html>
-    `);
-
-  } catch (err) {
-    console.log(err);
-    res.send(err.message);
-  }
-});
+        
 app.post("/edit-profile/:username", async (req, res) => {
   try {
 
