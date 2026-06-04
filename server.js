@@ -588,7 +588,13 @@ res.send(`
   </body>
   </html>
 `);
+res.redirect(`/profile/${req.params.username}`);
 
+} catch (err) {
+  console.log(err);
+  res.send(err.message);
+}
+});
 } catch (err) {
 console.log(err);
 res.send(err.message);
