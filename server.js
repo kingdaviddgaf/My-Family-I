@@ -303,7 +303,17 @@ replies.forEach(reply => {
     background:#334155;
     border-radius:8px;
   ">
-    <strong>${comment.username}</strong>
+    <strong>
+  <a
+    href="/profile/${comment.username}"
+    style="
+      color:#60a5fa;
+      text-decoration:none;
+    "
+  >
+    👤 ${comment.username}
+  </a>
+</strong>
     <p>${comment.content}</p>
 
     <form method="POST" action="/reply/${comment._id}">
