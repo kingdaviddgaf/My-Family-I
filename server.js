@@ -522,19 +522,12 @@ app.post("/edit-profile/:username", async (req, res) => {
     res.send(err.message);
   }
 });
-
 app.get("/edit-profile/:username", async (req, res) => {
   try {
 
-    const { avatar, bio } = req.body;
-
-    await User.findOneAndUpdate(
-      { username: req.params.username },
-      {
-        avatar,
-        bio
-      }
-    );
+    const user = await User.findOne({
+      username: req.params.username
+    });
 
     if (!user) {
       return res.send("User not found");
@@ -542,20 +535,11 @@ app.get("/edit-profile/:username", async (req, res) => {
 
     res.send(`
       <html>
-      <body style="
-        font-family:Arial;
-        background:#0f172a;
-        color:white;
-        max-width:600px;
-        margin:auto;
-        padding:20px;
-      ">
+      <body>
 
         <h1>Edit Profile</h1>
 
         <form method="POST" action="/edit-profile/${user.username}">
-
-          <p>Avatar Emoji</p>
 
           <input
             type="text"
@@ -565,19 +549,82 @@ app.get("/edit-profile/:username", async (req, res) => {
 
           <br><br>
 
-          <p>Bio</p>
-
           <textarea
             name="bio"
             rows="5"
-            style="width:100%;"
-          
-app.get("/users", async (req, res) => {
-  const users = await User.find();
+          >${user.bio}</textarea>
 
-  res.send(users);
+          <br><br>
+
+          <button type="submit">
+            Save Profile
+          </button>
+
+        </form>
+
+      </body>
+      </html>
+    `);
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
 });
-app.listen(PORT, () => {
-console.log("Server running on port " + PORT);
-});
+app.get("/edit-profile/:username", async (req, res) => {
+
+if (!user) {
+  return res.send("User not found");
+}
+
+res.send(`
+  <html>
+  <body style="
+    font-family:Arial;
+    background:#0f172a;
+    color:white;
+    max-width:600px;
+    margin:auto;
+    padding:20px;
+  ">
+
+    <h1>Edit Profile</h1>
+
+    <form method="POST" action="/edit-profile/${user.username}">
+
+      <p>Avatar Emoji</p>
+
+      <input
+        type="text"
+        name="avatar"
+        value="${user.avatar}"
+      >
+
+      <br><br>
+
+      <p>Bio</p>
+
+      <textarea
+        name="bio"
+        rows="5"
+        style="width:100%;"
+      >${user.bio}</textarea>
+
+      <br><br>
+
+      <button type="submit">
+        Save Profile
+      </button>
+
+    </form>
+
+  </body>
+  </html>
+`);
+
+} catch (err) {
+console.log(err);
+res.send(err.message);
+}
+});       
 
