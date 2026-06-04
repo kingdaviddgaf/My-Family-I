@@ -486,6 +486,26 @@ app.get("/profile/:username", async (req, res) => {
   }
 });
 app.get("/edit-profile/:username", async (req, res) => {
+  app.post("/edit-profile/:username", async (req, res) => {
+  try {
+
+    const { avatar, bio } = req.body;
+
+    await User.findOneAndUpdate(
+      { username: req.params.username },
+      {
+        avatar,
+        bio
+      }
+    );
+
+    res.redirect(`/profile/${req.params.username}`);
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
   try {
     const user = await User.findOne({
       username: req.params.username
