@@ -251,7 +251,7 @@ replies.forEach(reply => {
         ↩️ Reply
       </button>
     </form>
-
+${replyHtml}
   </div>
 `;
   }
