@@ -341,7 +341,17 @@ padding:15px;
 margin:10px;  
 border-radius:10px;  
 ">
-<h3>${post.username}</h3>
+<h3>
+  <a
+    href="/profile/${post.username}"
+    style="
+      color:#60a5fa;
+      text-decoration:none;
+    "
+  >
+    👤 ${post.username}
+  </a>
+</h3>
 
 <p>${post.content}</p>  <p>❤️ ${post.likes || 0} Likes</p>  <form method="POST" action="/like/${post._id}">  
   <button type="submit">  
