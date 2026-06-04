@@ -285,7 +285,9 @@ const user = await User.findOne({ username });
         padding:20px;
       ">
 
-        <h1>👤 ${username}</h1>
+        <h1>${user.avatar} ${username}</h1>
+
+<p>${user.bio || "No bio yet"}</p>
 
         <p>Total Posts: ${userPosts.length}</p>
 
