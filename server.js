@@ -236,6 +236,64 @@ replies.forEach(reply => {
     `;
   }
 });
+  app.get("/profile/:username", async (req, res) => {
+  try {
+    const username = req.params.username;
+
+    const userPosts = await Post.find({ username })
+      .sort({ createdAt: -1 });
+
+    let postsHtml = "";
+
+    userPosts.forEach(post => {
+      postsHtml += `
+        <div style="
+          background:#1e293b;
+          padding:15px;
+          margin:10px 0;
+          border-radius:10px;
+        ">
+          <p>${post.content}</p>
+          <small>❤️ ${post.likes || 0} Likes</small>
+        </div>
+      `;
+    });
+
+    res.send(`
+      <html>
+      <head>
+        <title>${username}'s Profile</title>
+      </head>
+      <body style="
+        font-family:Arial;
+        background:#0f172a;
+        color:white;
+        max-width:700px;
+        margin:auto;
+        padding:20px;
+      ">
+
+        <h1>👤 ${username}</h1>
+
+        <p>Total Posts: ${userPosts.length}</p>
+
+        <a href="/family" style="color:#22c55e;">
+          ← Back to Family
+        </a>
+
+        <hr>
+
+        ${postsHtml}
+
+      </body>
+      </html>
+    `);
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
   if (comment.postId === post._id.toString()) {
     commentHtml += `
   <div style="
