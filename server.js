@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
-
+const jwt = require("jsonwebtoken");
 console.log("MY FAMILY APP STARTING...");
 const app = express();
 const authRoutes = require("./routes/auth");
