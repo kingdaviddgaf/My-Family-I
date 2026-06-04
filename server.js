@@ -485,11 +485,6 @@ app.get("/profile/:username", async (req, res) => {
     res.send(err.message);
   }
 });
-});
-
-app.get("/edit-profile/:username", async (req, res) => {
-   // existing edit profile code
-});
 app.get("/edit-profile/:username", async (req, res) => {
   try {
     const user = await User.findOne({
