@@ -415,7 +415,6 @@ textarea{
 
 `);
 });
-...other code...
 
 app.get("/profile/:username", async (req, res) => {
    // profile code here
