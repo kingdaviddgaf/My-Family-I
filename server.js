@@ -319,6 +319,17 @@ border-radius:10px;
   >
     👤 ${post.username}
   </a>
+  <br><br>
+
+<a
+  href="/edit-profile/${username}"
+  style="
+    color:#60a5fa;
+    text-decoration:none;
+  "
+>
+  ✏️ Edit Profile
+</a>
 </h3>
 
 <p>${post.content}</p>  <p>❤️ ${post.likes || 0} Likes</p>  <form method="POST" action="/like/${post._id}">  
