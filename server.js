@@ -250,6 +250,8 @@ replies.forEach(reply => {
   try {
     const username = req.params.username;
 
+const user = await User.findOne({ username });
+
     const userPosts = await Post.find({ username })
       .sort({ createdAt: -1 });
 
