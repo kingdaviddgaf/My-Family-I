@@ -208,31 +208,7 @@ app.post("/reply/:id", async (req, res) => {
     res.send(err.message);
   }
 });
-app.get("/profile/:username", async (req, res) => {
-  try {
-    const username = req.params.username;
 
-const user = await User.findOne({ username });
-
-    const userPosts = await Post.find({ username })
-      .sort({ createdAt: -1 });
-
-    let postsHtml = "";
-
-    userPosts.forEach(post => {
-      postsHtml += `
-        <div style="
-          background:#1e293b;
-          padding:15px;
-          margin:10px 0;
-          border-radius:10px;
-        ">
-          <p>${post.content}</p>
-          <small>❤️ ${post.likes || 0} Likes</small>
-        </div>
-      `;
-    });
-app.get("/family", async (req, res) => {
 const posts = await Post.find().sort({ createdAt: -1 });
 const comments = await Comment.find();
 const replies = await Reply.find();
