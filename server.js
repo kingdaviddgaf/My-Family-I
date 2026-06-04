@@ -415,6 +415,15 @@ textarea{
 
 `);
 });
+...other code...
+
+app.get("/profile/:username", async (req, res) => {
+   // profile code here
+});
+
+app.get("/edit-profile/:username", async (req, res) => {
+   // existing edit profile code
+});
 app.get("/edit-profile/:username", async (req, res) => {
   try {
     const user = await User.findOne({
