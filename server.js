@@ -272,45 +272,7 @@ replies.forEach(reply => {
     `;
   }
 });
-  
-
-    res.send(`
-      <html>
-      <head>
-        <title>${username}'s Profile</title>
-      </head>
-      <body style="
-        font-family:Arial;
-        background:#0f172a;
-        color:white;
-        max-width:700px;
-        margin:auto;
-        padding:20px;
-      ">
-
-        <h1>${user.avatar} ${username}</h1>
-
-<p>${user.bio || "No bio yet"}</p>
-
-        <p>Total Posts: ${userPosts.length}</p>
-
-        <a href="/family" style="color:#22c55e;">
-          ← Back to Family
-        </a>
-
-        <hr>
-
-        ${postsHtml}
-
-      </body>
-      </html>
-    `);
-
-  } catch (err) {
-    console.log(err);
-    res.send(err.message);
-  }
-});
+   
   if (comment.postId === post._id.toString()) {
     commentHtml += `
   <div style="
