@@ -568,25 +568,7 @@ app.get("/edit-profile/:username", async (req, res) => {
             name="bio"
             rows="5"
             style="width:100%;"
-          >${user.bio}</textarea>
-
-          <br><br>
-
-          <button type="submit">
-            Save Profile
-          </button>
-
-        </form>
-
-      </body>
-      </html>
-    `);
-
-  } catch (err) {
-    console.log(err);
-    res.send(err.message);
-  }
-});
+          
 app.get("/users", async (req, res) => {
   const users = await User.find();
 
