@@ -186,16 +186,6 @@ app.post("/reply/:id", async (req, res) => {
     res.send(err.message);
   }
 });
-
-await comment.save();  
-
-res.redirect("/family");
-
-} catch (err) {
-console.log(err);
-res.send(err.message);
-}
-});
 app.get("/family", async (req, res) => {
 const posts = await Post.find().sort({ createdAt: -1 });
 const comments = await Comment.find();
