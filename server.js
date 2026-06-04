@@ -521,18 +521,6 @@ app.get("/edit-profile/:username", async (req, res) => {
       }
     );
 
-    res.redirect(`/profile/${req.params.username}`);
-
-  } catch (err) {
-    console.log(err);
-    res.send(err.message);
-  }
-});
-  try {
-    const user = await User.findOne({
-      username: req.params.username
-    });
-
     if (!user) {
       return res.send("User not found");
     }
