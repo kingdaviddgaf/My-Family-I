@@ -417,7 +417,74 @@ textarea{
 });
 
 app.get("/profile/:username", async (req, res) => {
-   // profile code here
+  try {
+    const username = decodeURIComponent(req.params.username);
+
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.send("User not found");
+    }
+
+    const userPosts = await Post.find({ username })
+      .sort({ createdAt: -1 });
+
+    let postsHtml = "";
+
+    userPosts.forEach(post => {
+      postsHtml += `
+        <div style="
+          background:#1e293b;
+          padding:15px;
+          margin:10px 0;
+          border-radius:10px;
+        ">
+          <p>${post.content}</p>
+          <small>❤️ ${post.likes || 0} Likes</small>
+        </div>
+      `;
+    });
+
+    res.send(`
+      <html>
+      <body style="
+        font-family:Arial;
+        background:#0f172a;
+        color:white;
+        max-width:700px;
+        margin:auto;
+        padding:20px;
+      ">
+
+        <h1>${user.avatar} ${user.username}</h1>
+
+        <p>${user.bio || "No bio yet"}</p>
+
+        <p>Total Posts: ${userPosts.length}</p>
+
+        <a href="/edit-profile/${encodeURIComponent(user.username)}">
+          Edit Profile
+        </a>
+
+        <br><br>
+
+        <a href="/family">
+          Back To Family
+        </a>
+
+        <hr>
+
+        ${postsHtml}
+
+      </body>
+      </html>
+    `);
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 });
 
 app.get("/edit-profile/:username", async (req, res) => {
