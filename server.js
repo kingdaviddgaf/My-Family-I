@@ -569,7 +569,9 @@ if (
     const user = await User.findOne({
       username: req.params.username
     });
-
+if (req.user.userId !== user._id.toString()) {
+  return res.send("Access denied");
+}
     if (!user) {
       return res.send("User not found");
     }
