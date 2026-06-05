@@ -558,9 +558,7 @@ app.get("/edit-profile/:username", async (req, res) => {
     return res.redirect("/login");
   }
   try {
-    console.log("REQ USER:", req.user);
-console.log("PARAM USERNAME:", req.params.username);
-
+    
     const user = await User.findById(req.user.userId);
 if (req.user.userId !== user._id.toString()) {
   return res.send("Access denied");
