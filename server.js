@@ -628,6 +628,40 @@ app.get("/posts", async (req, res) => {
   const posts = await Post.find();
   res.send(posts);
 });
+app.get("/fix-lucky", async (req, res) => {
+
+  await Post.updateMany(
+    { username: "Lucky" },
+    { username: "King David " }
+  );
+
+  await Post.updateMany(
+    { username: "Lucky " },
+    { username: "King David " }
+  );
+
+  await Comment.updateMany(
+    { username: "Lucky" },
+    { username: "King David " }
+  );
+
+  await Comment.updateMany(
+    { username: "Lucky " },
+    { username: "King David " }
+  );
+
+  await Reply.updateMany(
+    { username: "Lucky" },
+    { username: "King David " }
+  );
+
+  await Reply.updateMany(
+    { username: "Lucky " },
+    { username: "King David " }
+  );
+
+  res.send("Fixed");
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
