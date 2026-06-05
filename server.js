@@ -351,8 +351,8 @@ border-radius:10px;
   <input  
     type="text"  
     name="username"  
-    placeholder="Your Name"  
-    required  
+    value="${req.user ? req.user.username : ''}"
+    readonly
   >  <br><br>
 
 <input
@@ -360,9 +360,7 @@ type="text"
 name="content"
 placeholder="Write a comment..."
 required
-
-> 
-
+>
 <br><br>
 
   <button type="submit">  
