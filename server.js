@@ -393,13 +393,12 @@ textarea{
 
   <h1>MY FAMILY ❤️</h1>  
 
-  <form method="POST" action="/post">  
-    <input  
-      type="text"  
-      name="username"  
-      placeholder="Your Name"  
-      required  
-    >  
+  <input
+  type="text"
+  name="username"
+  value="Logged In User"
+  readonly
+>
 
     <br><br>  
 
