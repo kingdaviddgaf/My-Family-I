@@ -347,6 +347,11 @@ border-radius:10px;
 </h3>
 
 <p>${post.content}</p>  <p>❤️ ${post.likes || 0} Likes</p>  <form method="POST" action="/like/${post._id}">  
+<form method="POST" action="/delete-post/${post._id}">
+  <button type="submit">
+    🗑️ Delete Post
+  </button>
+</form>
   <button type="submit">  
     ❤️ Like  
   </button>  
