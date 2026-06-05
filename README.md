@@ -11,3 +11,4 @@ Features:
 - Replies
 - Profiles
 - Edit profile
+- Working version before automatic user sessions
