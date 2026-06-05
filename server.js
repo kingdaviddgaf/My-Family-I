@@ -624,6 +624,10 @@ app.get("/logout", (req, res) => {
   res.clearCookie("token");
   res.redirect("/login");
 });
+app.get("/posts", async (req, res) => {
+  const posts = await Post.find();
+  res.send(posts);
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
