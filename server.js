@@ -402,7 +402,22 @@ textarea{
 </head>  
 <body>  
 
-  <h1>MY FAMILY ❤️</h1>  
+  <h1>MY FAMILY ❤️</h1>
+
+<a
+  href="/logout"
+  style="
+    color:white;
+    background:#ef4444;
+    padding:8px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    display:inline-block;
+    margin-bottom:20px;
+  "
+>
+  Logout
+</a>  
 
   <input
   type="text"
