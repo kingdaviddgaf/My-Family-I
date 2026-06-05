@@ -667,6 +667,18 @@ app.get("/fix-lucky", async (req, res) => {
 
   res.send("Fixed");
 });
+app.post("/delete-post/:id", async (req, res) => {
+  try {
+
+    await Post.findByIdAndDelete(req.params.id);
+
+    res.redirect("/family");
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
