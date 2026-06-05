@@ -668,6 +668,47 @@ app.post("/delete-post/:id", async (req, res) => {
     res.send(err.message);
   }
 });
+app.get("/edit-post/:id", async (req, res) => {
+  try {
+
+    const post = await Post.findById(req.params.id);
+
+    if (!post) {
+      return res.send("Post not found");
+    }
+
+    res.send(`
+      <html>
+      <body>
+
+        <h1>Edit Post</h1>
+
+        <form method="POST" action="/edit-post/${post._id}">
+
+          <textarea
+            name="content"
+            rows="5"
+            cols="40"
+            required
+          >${post.content}</textarea>
+
+          <br><br>
+
+          <button type="submit">
+            Save Changes
+          </button>
+
+        </form>
+
+      </body>
+      </html>
+    `);
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
