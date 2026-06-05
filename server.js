@@ -536,6 +536,10 @@ app.post("/edit-profile/:username", async (req, res) => {
 });
 
 app.get("/edit-profile/:username", async (req, res) => {
+
+  if (!req.user) {
+    return res.redirect("/login");
+  }
   try {
 
     const user = await User.findOne({
