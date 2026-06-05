@@ -114,14 +114,17 @@ console.log("USER:", user);
       return res.send("Incorrect password");
     }
 
-    const token = jwt.sign(
+const token = jwt.sign(
   {
     userId: user._id,
     username: user.username
   },
   "myfamilysecret"
 );
-    res.cookie("token", token);
+
+res.cookie("token", token);
+
+console.log("Logged in:", user.username);
 
 res.send(`
 <h2>Login Successful</h2>
