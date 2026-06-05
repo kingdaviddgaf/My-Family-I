@@ -230,6 +230,10 @@ app.post("/reply/:id", async (req, res) => {
 
 app.get("/family", async (req, res) => {
 
+  if (!req.user) {
+    return res.redirect("/login");
+  }
+
 const posts = await Post.find().sort({ createdAt: -1 });
 const comments = await Comment.find();
 const replies = await Reply.find();
