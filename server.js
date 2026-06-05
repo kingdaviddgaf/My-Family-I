@@ -521,12 +521,13 @@ app.post("/edit-profile/:username", async (req, res) => {
     const { username, avatar, bio } = req.body;
 
     await User.findOneAndUpdate(
-      { username: req.params.username },
-      {
-        avatar,
-        bio
-      }
-    );
+  { username: req.params.username },
+  {
+    username,
+    avatar,
+    bio
+  }
+);
     res.redirect(`/profile/${req.params.username}`);
 
   } catch (err) {
