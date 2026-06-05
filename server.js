@@ -355,7 +355,11 @@ border-radius:10px;
     ❤️ Like
   </button>
 </form>
-
+<form method="GET" action="/edit-post/${post._id}">
+  <button type="submit">
+    ✏️ Edit Post
+  </button>
+</form>
 <form method="POST" action="/delete-post/${post._id}">
   <button type="submit">
     🗑️ Delete Post
