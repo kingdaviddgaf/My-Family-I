@@ -409,7 +409,7 @@ textarea{
   <input
   type="text"
   name="username"
-  value="Logged In User"
+  value="${req.user ? req.user.username : ''}"
   readonly
 >
 
