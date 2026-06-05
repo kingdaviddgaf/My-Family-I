@@ -518,7 +518,7 @@ res.send(err.message);
 app.post("/edit-profile/:username", async (req, res) => {
   try {
 
-    const { avatar, bio } = req.body;
+    const { username, avatar, bio } = req.body;
 
     await User.findOneAndUpdate(
       { username: req.params.username },
