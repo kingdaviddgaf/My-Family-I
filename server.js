@@ -528,6 +528,20 @@ const oldUsername = req.params.username;
     bio
   }
 );
+    await Post.updateMany(
+  { username: oldUsername },
+  { username }
+);
+
+await Comment.updateMany(
+  { username: oldUsername },
+  { username }
+);
+
+await Reply.updateMany(
+  { username: oldUsername },
+  { username }
+);
     res.redirect(`/profile/${username}`);
 
   } catch (err) {
