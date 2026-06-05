@@ -9,6 +9,19 @@ const authRoutes = require("./routes/auth");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use((req, res, next) => {
+  const token = req.cookies.token;
+
+  if (token) {
+    try {
+      req.user = jwt.verify(token, "myfamilysecret");
+    } catch (err) {
+      console.log("Invalid token");
+    }
+  }
+
+  next();
+});
 app.use("/auth", authRoutes);
 mongoose.connect(process.env.MONGO_URI)
 .then(() => console.log("MongoDB Connected"))
