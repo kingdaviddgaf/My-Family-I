@@ -557,6 +557,15 @@ if (req.user.username !== req.params.username) {
       <body>
 
         <h1>Edit Profile</h1>
+        <p>Username</p>
+
+<input
+  type="text"
+  name="username"
+  value="${user.username}"
+>
+
+<br><br>
 
         <form method="POST" action="/edit-profile/${user.username}">
 
