@@ -454,6 +454,10 @@ textarea{
 });
 
 app.get("/profile/:username", async (req, res) => {
+
+  if (!req.user) {
+    return res.redirect("/login");
+  }
   try {
     const username = decodeURIComponent(req.params.username);
 
