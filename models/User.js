@@ -25,6 +25,11 @@ bio: {
 avatar: {
   type: String,
   default: "👤"
+},
+
+lastUsernameChange: {
+  type: Date,
+  default: null
 }
 
 }, {
