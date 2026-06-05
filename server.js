@@ -528,7 +528,7 @@ app.post("/edit-profile/:username", async (req, res) => {
     bio
   }
 );
-    res.redirect(`/profile/${req.params.username}`);
+    res.redirect(`/profile/${username}`);
 
   } catch (err) {
     console.log(err);
