@@ -346,36 +346,21 @@ border-radius:10px;
 
 </h3>
 
-<p>${post.content}</p>  <p>❤️ ${post.likes || 0} Likes</p>  <form method="POST" action="/like/${post._id}">  
+<p>${post.content}</p>
+
+<p>❤️ ${post.likes || 0} Likes</p>
+
+<form method="POST" action="/like/${post._id}">
+  <button type="submit">
+    ❤️ Like
+  </button>
+</form>
+
 <form method="POST" action="/delete-post/${post._id}">
   <button type="submit">
     🗑️ Delete Post
   </button>
-</form>
-  <button type="submit">  
-    ❤️ Like  
-  </button>  
-</form>  
-<form method="POST" action="/comment/${post._id}">  
-  <input  
-    type="text"  
-    name="username"  
-    value="${req.user ? req.user.username : ''}"
-    readonly
-  >  <br><br>
-
-<input
-type="text"
-name="content"
-placeholder="Write a comment..."
-required
->
-<br><br>
-
-  <button type="submit">  
-    💬 Comment  
-  </button>  
-</form>  <h4>💬 Comments</h4>  
+</form> <h4>💬 Comments</h4>  
 ${commentHtml}  
       </div>  
     `;  
