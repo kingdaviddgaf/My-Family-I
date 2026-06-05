@@ -545,3 +545,12 @@ app.get("/edit-profile/:username", async (req, res) => {
     res.send(err.message);
   }
 });
+app.get("/users", async (req, res) => {
+  const users = await User.find();
+
+  res.send(users);
+});
+
+app.listen(PORT, () => {
+  console.log("Server running on port " + PORT);
+});
