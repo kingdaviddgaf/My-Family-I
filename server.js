@@ -295,11 +295,11 @@ replies.forEach(reply => {
 
     <form method="POST" action="/reply/${comment._id}">
       <input
-        type="text"
-        name="username"
-        placeholder="Your Name"
-        required
-      >
+  type="text"
+  name="username"
+  value="${req.user ? req.user.username : ''}"
+  readonly
+>
 
       <br><br>
 
