@@ -427,7 +427,7 @@ textarea{
 >
   Logout
 </a>  
-
+<form method="POST" action="/post">
   <input
   type="text"
   name="username"
