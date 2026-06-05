@@ -566,7 +566,10 @@ app.get("/users", async (req, res) => {
 
   res.send(users);
 });
-
+app.get("/logout", (req, res) => {
+  res.clearCookie("token");
+  res.redirect("/login");
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
