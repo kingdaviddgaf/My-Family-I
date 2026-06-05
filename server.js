@@ -709,6 +709,23 @@ app.get("/edit-post/:id", async (req, res) => {
     res.send(err.message);
   }
 });
+app.post("/edit-post/:id", async (req, res) => {
+  try {
+
+    await Post.findByIdAndUpdate(
+      req.params.id,
+      {
+        content: req.body.content
+      }
+    );
+
+    res.redirect("/family");
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
