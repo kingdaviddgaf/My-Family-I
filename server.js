@@ -119,6 +119,7 @@ console.log("USER:", user);
   },
   "myfamilysecret"
 );
+    res.cookie("token", token);
 
 res.send(`
 <h2>Login Successful</h2>
