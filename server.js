@@ -302,6 +302,13 @@ replies.forEach(reply => {
   </a>
 </strong>
     <p>${comment.content}</p>
+    ${comment.userId === req.user.userId ? `
+<form method="GET" action="/edit-comment/${comment._id}">
+  <button type="submit">
+    ✏️ Edit Comment
+  </button>
+</form>
+` : ""}
 <form method="POST" action="/delete-comment/${comment._id}">
   <button type="submit">
     🗑️ Delete Comment
