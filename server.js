@@ -815,6 +815,10 @@ app.post("/delete-reply/:id", async (req, res) => {
     res.send(err.message);
   }
 });
+app.get("/replies", async (req, res) => {
+  const replies = await Reply.find();
+  res.send(replies);
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
