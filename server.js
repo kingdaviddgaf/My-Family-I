@@ -939,6 +939,45 @@ app.get("/edit-comment/:id", async (req, res) => {
     res.send(err.message);
   }
 });
+app.get("/edit-reply/:id", async (req, res) => {
+  try {
+
+    const reply = await Reply.findById(req.params.id);
+
+    if (!reply) {
+      return res.send("Reply not found");
+    }
+
+    if (reply.userId !== req.user.userId) {
+      return res.send("Access denied");
+    }
+
+    res.send(`
+      <h1>Edit Reply</h1>
+
+      <form method="POST" action="/edit-reply/${reply._id}">
+
+        <textarea
+          name="content"
+          rows="5"
+          cols="40"
+          required
+        >${reply.content}</textarea>
+
+        <br><br>
+
+        <button type="submit">
+          Save Changes
+        </button>
+
+      </form>
+    `);
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
