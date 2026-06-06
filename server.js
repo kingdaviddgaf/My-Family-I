@@ -762,6 +762,24 @@ app.post("/edit-post/:id", async (req, res) => {
 app.post("/delete-comment/:id", async (req, res) => {
   try {
 
+    const comment = await Comment.findById(req.params.id);
+
+    if (!comment) {
+      return res.send("Comment not found");
+    }
+
+    const post = await Post.findById(comment.postId);
+
+    const isCommentOwner =
+      comment.userId === req.user.userId;
+
+    const isPostOwner =
+      post && post.userId === req.user.userId;
+
+    if (!isCommentOwner && !isPostOwner) {
+      return res.send("Access denied");
+    }
+
     await Comment.findByIdAndDelete(req.params.id);
 
     res.redirect("/family");
