@@ -296,7 +296,11 @@ replies.forEach(reply => {
   </a>
 </strong>
     <p>${comment.content}</p>
-
+<form method="POST" action="/delete-comment/${comment._id}">
+  <button type="submit">
+    🗑️ Delete Comment
+  </button>
+</form>
     <form method="POST" action="/reply/${comment._id}">
       <input
   type="text"
