@@ -367,7 +367,31 @@ ${post.userId === req.user.userId ? `
   </button>
 </form>
 ` : ""}
+<form method="POST" action="/comment/${post._id}">
 
+  <input
+    type="text"
+    name="username"
+    value="${req.user ? req.user.username : ''}"
+    readonly
+  >
+
+  <br><br>
+
+  <input
+    type="text"
+    name="content"
+    placeholder="Write a comment..."
+    required
+  >
+
+  <br><br>
+
+  <button type="submit">
+    💬 Comment
+  </button>
+
+</form>
 <h4>💬 Comments</h4>  
 ${commentHtml}  
       </div>  
