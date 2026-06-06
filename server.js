@@ -823,6 +823,33 @@ app.post("/delete-reply/:id", async (req, res) => {
     res.send(err.message);
   }
 });
+app.post("/edit-comment/:id", async (req, res) => {
+  try {
+
+    const comment = await Comment.findById(req.params.id);
+
+    if (!comment) {
+      return res.send("Comment not found");
+    }
+
+    if (comment.userId !== req.user.userId) {
+      return res.send("Access denied");
+    }
+
+    await Comment.findByIdAndUpdate(
+      req.params.id,
+      {
+        content: req.body.content
+      }
+    );
+
+    res.redirect("/family");
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.get("/replies", async (req, res) => {
   const replies = await Reply.find();
   res.send(replies);
