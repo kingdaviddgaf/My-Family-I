@@ -195,11 +195,12 @@ app.post("/comment/:id", async (req, res) => {
 try {
 const { username, content } = req.body;
 
-const comment = new Comment({  
-  postId: req.params.id,  
-  username,  
-  content  
-}); 
+const comment = new Comment({
+  postId: req.params.id,
+  userId: req.user.userId,
+  username,
+  content
+});
   
     await comment.save();
 
