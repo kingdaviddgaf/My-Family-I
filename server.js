@@ -163,11 +163,11 @@ app.post("/post", async (req, res) => {
 try {
 const { username, content } = req.body;
 
-const post = new Post({  
-  username,  
-  content  
-});  
-
+const post = new Post({
+  userId: req.user.userId,
+  username,
+  content
+});
 await post.save();  
 
 res.redirect("/family");
