@@ -793,6 +793,28 @@ app.post("/delete-comment/:id", async (req, res) => {
     res.send(err.message);
   }
 });
+app.post("/delete-reply/:id", async (req, res) => {
+  try {
+
+    const reply = await Reply.findById(req.params.id);
+
+    if (!reply) {
+      return res.send("Reply not found");
+    }
+
+    if (reply.userId !== req.user.userId) {
+      return res.send("Access denied");
+    }
+
+    await Reply.findByIdAndDelete(req.params.id);
+
+    res.redirect("/family");
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
