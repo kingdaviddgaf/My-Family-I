@@ -758,6 +758,18 @@ app.post("/edit-post/:id", async (req, res) => {
     res.send(err.message);
   }
 });
+app.post("/delete-comment/:id", async (req, res) => {
+  try {
+
+    await Comment.findByIdAndDelete(req.params.id);
+
+    res.redirect("/family");
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
