@@ -357,13 +357,14 @@ ${post.userId === req.user.userId ? `
   </button>
 </form>
 
-
-` : ""}
 <form method="POST" action="/delete-post/${post._id}">
   <button type="submit">
     🗑️ Delete Post
   </button>
-</form> <h4>💬 Comments</h4>  
+</form>
+` : ""}
+
+<h4>💬 Comments</h4>  
 ${commentHtml}  
       </div>  
     `;  
