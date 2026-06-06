@@ -215,11 +215,11 @@ app.post("/reply/:id", async (req, res) => {
     const { username, content } = req.body;
 
     const reply = new Reply({
-      commentId: req.params.id,
-      username,
-      content
-    });
-
+  commentId: req.params.id,
+  userId: req.user.userId,
+  username,
+  content
+});
     await reply.save();
 
     res.redirect("/family");
