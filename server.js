@@ -271,6 +271,13 @@ replies.forEach(reply => {
   </a>
 </strong>
 <p>${reply.content}</p>
+${reply.userId === req.user.userId ? `
+<form method="GET" action="/edit-reply/${reply._id}">
+  <button type="submit">
+    ✏️ Edit Reply
+  </button>
+</form>
+` : ""}
         <form method="POST" action="/delete-reply/${reply._id}">
   <button type="submit">
     🗑️ Delete Reply
