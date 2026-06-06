@@ -270,7 +270,11 @@ replies.forEach(reply => {
     👤 ${reply.username}
   </a>
 </strong>
-        <p>${reply.content}</p>
+        <form method="POST" action="/delete-reply/${reply._id}">
+  <button type="submit">
+    🗑️ Delete Reply
+  </button>
+</form>
       </div>
     `;
   }
