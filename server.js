@@ -350,16 +350,19 @@ border-radius:10px;
 
 <p>❤️ ${post.likes || 0} Likes</p>
 
-<form method="POST" action="/like/${post._id}">
-  <button type="submit">
-    ❤️ Like
-  </button>
-</form>
+${post.userId === req.user.userId ? `
 <form method="GET" action="/edit-post/${post._id}">
   <button type="submit">
     ✏️ Edit Post
   </button>
 </form>
+
+<form method="POST" action="/delete-post/${post._id}">
+  <button type="submit">
+    🗑️ Delete Post
+  </button>
+</form>
+` : ""}
 <form method="POST" action="/delete-post/${post._id}">
   <button type="submit">
     🗑️ Delete Post
