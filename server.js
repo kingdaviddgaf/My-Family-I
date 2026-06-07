@@ -1009,6 +1009,50 @@ app.post("/edit-reply/:id", async (req, res) => {
     res.send(err.message);
   }
 });
+app.post("/follow/:username", async (req, res) => {
+  try {
+
+    const targetUser = await User.findOne({
+      username: req.params.username
+    });
+
+    const currentUser = await User.findById(
+      req.user.userId
+    );
+
+    if (!targetUser) {
+      return res.send("User not found");
+    }
+
+    if (targetUser.username === currentUser.username) {
+      return res.send("You cannot follow yourself");
+    }
+
+    if (
+      !targetUser.followers.includes(currentUser.username)
+    ) {
+
+      targetUser.followers.push(
+        currentUser.username
+      );
+
+      currentUser.following.push(
+        targetUser.username
+      );
+
+      await targetUser.save();
+      await currentUser.save();
+    }
+
+    res.redirect(
+      `/profile/${targetUser.username}`
+    );
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
