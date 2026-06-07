@@ -548,7 +548,18 @@ app.get("/profile/:username", async (req, res) => {
       ">
 
         <h1>${user.avatar} ${user.username}</h1>
-        <p>${user.bio || "No bio yet"}</p><p>Total Posts: ${userPosts.length}</p><a href="/edit-profile/${encodeURIComponent(user.username)}">
+        <p>${user.bio || "No bio yet"}</p><p>Total Posts: ${userPosts.length}</p>
+        <p>Followers: ${user.followers ? user.followers.length : 0}</p>
+
+<p>Following: ${user.following ? user.following.length : 0}</p>
+
+${req.user.username !== user.username ? `
+<form method="POST" action="/follow/${user.username}">
+  <button type="submit">
+    ➕ Follow
+  </button>
+</form>
+` : ""}<a href="/edit-profile/${encodeURIComponent(user.username)}">
   Edit Profile
 </a><br><br>
 
