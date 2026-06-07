@@ -318,11 +318,13 @@ ${reply.userId === req.user.userId ? `
   </button>
 </form>
 ` : ""}
+${comment.userId === req.user.userId || post.userId === req.user.userId ? `
 <form method="POST" action="/delete-comment/${comment._id}">
   <button type="submit">
     🗑️ Delete Comment
   </button>
 </form>
+` : ""}
     <form method="POST" action="/reply/${comment._id}">
       <input
   type="text"
