@@ -27,10 +27,6 @@ avatar: {
   default: "👤"
 },
 
-lastUsernameChange: {
-  type: Date,
-  default: null
-}
   lastUsernameChange: {
   type: Date,
   default: null
