@@ -559,9 +559,13 @@ ${req.user.username !== user.username ? `
     ➕ Follow
   </button>
 </form>
-` : ""}<a href="/edit-profile/${encodeURIComponent(user.username)}">
+` : ""}
+${req.user.username === user.username ? `
+<a href="/edit-profile/${encodeURIComponent(user.username)}">
   Edit Profile
-</a><br><br>
+</a>
+<br><br>
+` : ""}
 
 <a href="/family">
   Back To Family
