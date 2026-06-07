@@ -556,11 +556,21 @@ const isFollowing =
   user.followers &&
   user.followers.includes(req.user.username);
 ${req.user.username !== user.username ? `
+
+${isFollowing ? `
+<form method="POST" action="/unfollow/${user.username}">
+  <button type="submit">
+    ❌ Unfollow
+  </button>
+</form>
+` : `
 <form method="POST" action="/follow/${user.username}">
   <button type="submit">
     ➕ Follow
   </button>
 </form>
+`}
+
 ` : ""}
 ${req.user.username === user.username ? `
 <a href="/edit-profile/${encodeURIComponent(user.username)}">
