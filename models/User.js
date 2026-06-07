@@ -31,6 +31,20 @@ lastUsernameChange: {
   type: Date,
   default: null
 }
+  lastUsernameChange: {
+  type: Date,
+  default: null
+},
+
+followers: {
+  type: [String],
+  default: []
+},
+
+following: {
+  type: [String],
+  default: []
+}
 
 }, {
   timestamps: true
