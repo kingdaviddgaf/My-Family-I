@@ -278,11 +278,13 @@ ${reply.userId === req.user.userId ? `
   </button>
 </form>
 ` : ""}
-        <form method="POST" action="/delete-reply/${reply._id}">
+        ${reply.userId === req.user.userId ? `
+<form method="POST" action="/delete-reply/${reply._id}">
   <button type="submit">
     🗑️ Delete Reply
   </button>
 </form>
+` : ""}
       </div>
     `;
   }
