@@ -549,7 +549,12 @@ const isFollowing = user.followers.includes(req.user.username);
 
         <h1>${user.avatar} ${user.username}</h1>
         <p>${user.bio || "No bio yet"}</p><p>Total Posts: ${userPosts.length}</p>
-        <p>Followers: ${user.followers ? user.followers.length : 0}</p>
+        <p>
+  Followers:
+  <a href="/followers/${encodeURIComponent(user.username)}">
+    ${user.followers ? user.followers.length : 0}
+  </a>
+</p>
 
 <p>Following: ${user.following ? user.following.length : 0}</p>
 
