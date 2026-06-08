@@ -213,6 +213,10 @@ const comment = new Comment({
   return res.redirect(req.headers.referer);
 }
 
+if (req.headers.referer) {
+  return res.redirect(req.headers.referer);
+}
+
 res.redirect("/family");
   } catch (err) {
     console.log(err);
