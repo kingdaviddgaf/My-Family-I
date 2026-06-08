@@ -523,18 +523,27 @@ const isFollowing = user.followers.includes(req.user.username);
     let postsHtml = "";
 
     userPosts.forEach(post => {
-      postsHtml += `
-        <div style="
-          background:#1e293b;
-          padding:15px;
-          margin:10px 0;
-          border-radius:10px;
-        ">
-          <p>${post.content}</p>
-          <small>❤️ ${post.likes || 0} Likes</small>
-        </div>
-      `;
-    });
+  postsHtml += `
+    <div style="
+      background:#1e293b;
+      padding:15px;
+      margin:10px 0;
+      border-radius:10px;
+    ">
+
+      <p>${post.content}</p>
+
+      <p>❤️ ${post.likes || 0} Likes</p>
+
+      <form method="POST" action="/like/${post._id}">
+        <button type="submit">
+          ❤️ Like
+        </button>
+      </form>
+
+    </div>
+  `;
+});
 
     res.send(`
       <html>
