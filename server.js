@@ -537,6 +537,23 @@ const comments = await Comment.find();
     let postsHtml = "";
 
     userPosts.forEach(post => {
+      let commentHtml = "";
+
+comments.forEach(comment => {
+  if (comment.postId === post._id.toString()) {
+    commentHtml += `
+      <div style="
+        margin-left:20px;
+        padding:10px;
+        background:#334155;
+        border-radius:8px;
+      ">
+        <strong>${comment.username}</strong>
+        <p>${comment.content}</p>
+      </div>
+    `;
+  }
+});
   postsHtml += `
     <div style="
       background:#1e293b;
