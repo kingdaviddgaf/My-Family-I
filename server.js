@@ -516,7 +516,7 @@ app.get("/profile/:username", async (req, res) => {
     if (!user) {
       return res.send("User not found");
     }
-
+const isFollowing = user.followers.includes(req.user.username);
     const userPosts = await Post.find({ username })
       .sort({ createdAt: -1 });
 
