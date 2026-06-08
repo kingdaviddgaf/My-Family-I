@@ -552,9 +552,7 @@ const isFollowing = user.followers.includes(req.user.username);
         <p>Followers: ${user.followers ? user.followers.length : 0}</p>
 
 <p>Following: ${user.following ? user.following.length : 0}</p>
-const isFollowing =
-  user.followers &&
-  user.followers.includes(req.user.username);
+
 ${req.user.username !== user.username ? `
 
 ${isFollowing ? `
