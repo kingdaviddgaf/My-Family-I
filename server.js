@@ -209,7 +209,11 @@ const comment = new Comment({
   
     await comment.save();
 
-    res.redirect("/family");
+    if (req.headers.referer) {
+  return res.redirect(req.headers.referer);
+}
+
+res.redirect("/family");
   } catch (err) {
     console.log(err);
     res.send(err.message);
