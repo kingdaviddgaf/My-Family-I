@@ -600,6 +600,10 @@ comments.forEach(comment => {
 
 </form>
 
+<h4>💬 Comments</h4>
+
+${commentHtml}
+
 </div>
   `;
 });
