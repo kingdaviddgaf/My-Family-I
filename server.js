@@ -178,18 +178,23 @@ res.send(err.message);
 }
 });
 app.post("/like/:id", async (req, res) => {
-try {
-await Post.findByIdAndUpdate(
-req.params.id,
-{ $inc: { likes: 1 } }
-);
+  try {
 
-res.redirect("/family");
+    await Post.findByIdAndUpdate(
+      req.params.id,
+      { $inc: { likes: 1 } }
+    );
 
-} catch (err) {
-console.log(err);
-res.send(err.message);
-}
+    if (req.headers.referer) {
+      return res.redirect(req.headers.referer);
+    }
+
+    res.redirect("/family");
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
 });
 app.post("/comment/:id", async (req, res) => {
 try {
