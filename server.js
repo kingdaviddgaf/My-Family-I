@@ -304,6 +304,24 @@ ${reply.userId === req.user.userId ? `
 });
    
   if (comment.postId === post._id.toString()) {
+    let replyHtml = "";
+
+replies.forEach(reply => {
+  if (reply.commentId === comment._id.toString()) {
+    replyHtml += `
+      <div style="
+        margin-left:40px;
+        margin-top:5px;
+        padding:8px;
+        background:#475569;
+        border-radius:8px;
+      ">
+        <strong>${reply.username}</strong>
+        <p>${reply.content}</p>
+      </div>
+    `;
+  }
+});
     commentHtml += `
   <div style="
     margin-left:20px;
