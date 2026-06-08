@@ -561,16 +561,47 @@ const comments = await Comment.find();
 comments.forEach(comment => {
   if (comment.postId === post._id.toString()) {
     commentHtml += `
-      <div style="
-        margin-left:20px;
-        padding:10px;
-        background:#334155;
-        border-radius:8px;
-      ">
-        <strong>${comment.username}</strong>
-        <p>${comment.content}</p>
-      </div>
-    `;
+  <div style="
+    margin-left:20px;
+    padding:10px;
+    background:#334155;
+    border-radius:8px;
+  ">
+
+    <strong>${comment.username}</strong>
+
+    <p>${comment.content}</p>
+
+    <form method="POST" action="/reply/${comment._id}">
+
+      <input
+        type="text"
+        name="username"
+        value="${req.user.username}"
+        readonly
+      >
+
+      <br><br>
+
+      <input
+        type="text"
+        name="content"
+        placeholder="Write a reply..."
+        required
+      >
+
+      <br><br>
+
+      <button type="submit">
+        ↩️ Reply
+      </button>
+
+    </form>
+
+    ${replyHtml}
+
+  </div>
+`;
   }
 });
   postsHtml += `
