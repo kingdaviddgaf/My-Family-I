@@ -321,7 +321,7 @@ replies.forEach(reply => {
   }
 });
   if (comment.postId === post._id.toString()) {
-    let replyHtml = "";
+    
 
 replies.forEach(reply => {
   if (reply.commentId === comment._id.toString()) {
