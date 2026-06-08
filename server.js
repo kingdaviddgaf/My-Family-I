@@ -551,18 +551,33 @@ comments.forEach(comment => {
 
   replies.forEach(reply => {
     if (reply.commentId === comment._id.toString()) {
-      replyHtml += `
-        <div style="
-          margin-left:40px;
-          padding:8px;
-          margin-top:5px;
-          background:#475569;
-          border-radius:8px;
-        ">
-          <strong>${reply.username}</strong>
-          <p>${reply.content}</p>
-        </div>
-      `;
+     replyHtml += `
+  <div style="
+    margin-left:40px;
+    padding:8px;
+    margin-top:5px;
+    background:#475569;
+    border-radius:8px;
+  ">
+    <strong>${reply.username}</strong>
+    <p>${reply.content}</p>
+
+    ${reply.userId === req.user.userId ? `
+      <form method="GET" action="/edit-reply/${reply._id}">
+        <button type="submit">
+          ✏️ Edit Reply
+        </button>
+      </form>
+
+      <form method="POST" action="/delete-reply/${reply._id}">
+        <button type="submit">
+          🗑️ Delete Reply
+        </button>
+      </form>
+    ` : ""}
+
+  </div>
+`; 
     }
   });
 
