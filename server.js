@@ -891,6 +891,46 @@ app.post("/edit-comment/:id", async (req, res) => {
     res.send(err.message);
   }
 });
+app.get("/following/:username", async (req, res) => {
+  try {
+
+    const user = await User.findOne({
+      username: req.params.username
+    });
+
+    if (!user) {
+      return res.send("User not found");
+    }
+
+    let followingHtml = "";
+
+    user.following.forEach(person => {
+      followingHtml += `
+        <p>
+          <a href="/profile/${encodeURIComponent(person)}">
+            👤 ${person}
+          </a>
+        </p>
+      `;
+    });
+
+    res.send(`
+      <h1>${user.username} is Following</h1>
+
+      ${followingHtml || "<p>Not following anyone yet</p>"}
+
+      <br>
+
+      <a href="/profile/${encodeURIComponent(user.username)}">
+        Back To Profile
+      </a>
+    `);
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.get("/followers/:username", async (req, res) => {
   try {
 
