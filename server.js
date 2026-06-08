@@ -886,6 +886,46 @@ app.post("/edit-comment/:id", async (req, res) => {
     res.send(err.message);
   }
 });
+app.get("/followers/:username", async (req, res) => {
+  try {
+
+    const user = await User.findOne({
+      username: req.params.username
+    });
+
+    if (!user) {
+      return res.send("User not found");
+    }
+
+    let followersHtml = "";
+
+    user.followers.forEach(follower => {
+      followersHtml += `
+        <p>
+          <a href="/profile/${encodeURIComponent(follower)}">
+            👤 ${follower}
+          </a>
+        </p>
+      `;
+    });
+
+    res.send(`
+      <h1>${user.username}'s Followers</h1>
+
+      ${followersHtml || "<p>No followers yet</p>"}
+
+      <br>
+
+      <a href="/profile/${encodeURIComponent(user.username)}">
+        Back To Profile
+      </a>
+    `);
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+});
 app.get("/replies", async (req, res) => {
   app.get("/edit-comment/:id", async (req, res) => {
   try {
