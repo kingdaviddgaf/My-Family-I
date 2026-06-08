@@ -534,6 +534,7 @@ const isFollowing = user.followers.includes(req.user.username);
     const userPosts = await Post.find({ username })
       .sort({ createdAt: -1 });
 const comments = await Comment.find();
+    const replies = await Reply.find();
     let postsHtml = "";
 
     userPosts.forEach(post => {
