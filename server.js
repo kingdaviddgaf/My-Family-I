@@ -542,12 +542,40 @@ const isFollowing = user.followers.includes(req.user.username);
       <p>❤️ ${post.likes || 0} Likes</p>
 
       <form method="POST" action="/like/${post._id}">
-        <button type="submit">
-          ❤️ Like
-        </button>
-      </form>
+  <button type="submit">
+    ❤️ Like
+  </button>
+</form>
 
-    </div>
+<br>
+
+<form method="POST" action="/comment/${post._id}">
+
+  <input
+    type="text"
+    name="username"
+    value="${req.user.username}"
+    readonly
+  >
+
+  <br><br>
+
+  <input
+    type="text"
+    name="content"
+    placeholder="Write a comment..."
+    required
+  >
+
+  <br><br>
+
+  <button type="submit">
+    💬 Comment
+  </button>
+
+</form>
+
+</div>
   `;
 });
 
