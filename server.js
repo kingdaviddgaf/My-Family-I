@@ -542,6 +542,26 @@ const comments = await Comment.find();
       let commentHtml = "";
 
 comments.forEach(comment => {
+
+  let replyHtml = "";
+
+  replies.forEach(reply => {
+    if (reply.commentId === comment._id.toString()) {
+      replyHtml += `
+        <div style="
+          margin-left:40px;
+          padding:8px;
+          margin-top:5px;
+          background:#475569;
+          border-radius:8px;
+        ">
+          <strong>${reply.username}</strong>
+          <p>${reply.content}</p>
+        </div>
+      `;
+    }
+  });
+
   if (comment.postId === post._id.toString()) {
     commentHtml += `
   <div style="
