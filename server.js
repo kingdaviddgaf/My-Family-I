@@ -577,8 +577,23 @@ comments.forEach(comment => {
 
     <strong>${comment.username}</strong>
 
-    <p>${comment.content}</p>
+<p>${comment.content}</p>
 
+${comment.userId === req.user.userId ? `
+<form method="GET" action="/edit-comment/${comment._id}">
+  <button type="submit">
+    ✏️ Edit Comment
+  </button>
+</form>
+` : ""}
+
+${comment.userId === req.user.userId || post.userId === req.user.userId ? `
+<form method="POST" action="/delete-comment/${comment._id}">
+  <button type="submit">
+    🗑️ Delete Comment
+  </button>
+</form>
+` : ""}
     <form method="POST" action="/reply/${comment._id}">
 
       <input
