@@ -387,31 +387,7 @@ border-radius:10px;
     ❤️ Like
   </button>
 </form>
-<form method="POST" action="/comment/${post._id}">
 
-  <input
-    type="text"
-    name="username"
-    value="${req.user.username}"
-    readonly
-  >
-
-  <br><br>
-
-  <input
-    type="text"
-    name="content"
-    placeholder="Write a comment..."
-    required
-  >
-
-  <br><br>
-
-  <button type="submit">
-    💬 Comment
-  </button>
-
-</form>
 ${post.userId === req.user.userId ? `
 <form method="GET" action="/edit-post/${post._id}">
   <button type="submit">
