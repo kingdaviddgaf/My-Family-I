@@ -235,7 +235,11 @@ app.post("/reply/:id", async (req, res) => {
 });
     await reply.save();
 
-    res.redirect("/family");
+if (req.headers.referer) {
+  return res.redirect(req.headers.referer);
+}
+
+res.redirect("/family");
   } catch (err) {
     console.log(err);
     res.send(err.message);
