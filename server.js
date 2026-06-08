@@ -556,7 +556,12 @@ const isFollowing = user.followers.includes(req.user.username);
   </a>
 </p>
 
-<p>Following: ${user.following ? user.following.length : 0}</p>
+<p>
+  Following:
+  <a href="/following/${encodeURIComponent(user.username)}">
+    ${user.following ? user.following.length : 0}
+  </a>
+</p>
 
 ${req.user.username !== user.username ? `
 
