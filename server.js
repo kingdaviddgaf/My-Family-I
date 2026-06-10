@@ -1173,9 +1173,7 @@ app.get("/followers/:username", async (req, res) => {
     res.send(err.message);
   }
 });
-  const replies = await Reply.find();
-  res.send(replies);
-});
+  
 
 app.get("/edit-reply/:id", async (req, res) => {
   try {
