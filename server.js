@@ -180,16 +180,34 @@ res.send(err.message);
 app.post("/like/:id", async (req, res) => {
   try {
 
-    await Post.findByIdAndUpdate(
-      req.params.id,
-      { $inc: { likes: 1 } }
-    );
+    const post = await Post.findById(req.params.id);
 
-    if (req.headers.referer) {
-      return res.redirect(req.headers.referer);
+    if (!post) {
+      return res.send("Post not found");
     }
 
-    res.redirect("/family");
+    const username = req.user.username;
+
+    if (post.likedBy.includes(username)) {
+
+      post.likedBy = post.likedBy.filter(
+        user => user !== username
+      );
+
+      post.likes = Math.max(0, post.likes - 1);
+
+    } else {
+
+      post.likedBy.push(username);
+
+      post.likes += 1;
+    }
+
+    await post.save();
+
+    return res.redirect(
+      req.headers.referer || "/family"
+    );
 
   } catch (err) {
     console.log(err);
