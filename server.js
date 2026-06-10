@@ -997,7 +997,7 @@ app.post("/delete-comment/:id", async (req, res) => {
 
     await Comment.findByIdAndDelete(req.params.id);
 
-    res.redirect("/family");
+    res.redirect(req.headers.referer || "/family");
 
   } catch (err) {
     console.log(err);
