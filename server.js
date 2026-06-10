@@ -413,9 +413,12 @@ border-radius:10px;
 <p>${post.content}</p>
 
 <p>❤️ ${post.likes || 0} Likes</p>
+
 <form method="POST" action="/like/${post._id}">
   <button type="submit">
-    ❤️ Like
+    ${post.likedBy && post.likedBy.includes(req.user.username)
+      ? "💔 Unlike"
+      : "❤️ Like"}
   </button>
 </form>
 
