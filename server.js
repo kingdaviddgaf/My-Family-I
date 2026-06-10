@@ -1132,7 +1132,7 @@ app.get("/followers/:username", async (req, res) => {
     res.send(err.message);
   }
 });
-app.get("/replies", async (req, res) => {
+
   app.get("/edit-comment/:id", async (req, res) => {
   try {
 
