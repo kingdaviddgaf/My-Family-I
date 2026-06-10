@@ -1150,7 +1150,8 @@ app.get("/replies", async (req, res) => {
     res.send(`
       <h1>Edit Comment</h1>
 
-      <form method="POST" action="/edit-comment/${comment._id}">
+     <form method="POST" action="/edit-comment/${comment._id}">
+<input type="hidden" name="returnTo" value="${req.headers.referer || '/family'}">
 
         <textarea
           name="content"
