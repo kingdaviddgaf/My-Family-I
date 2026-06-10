@@ -1046,8 +1046,7 @@ app.post("/edit-comment/:id", async (req, res) => {
       }
     );
 
-   return res.redirect(req.headers.referer || "/family");
-
+   return res.redirect(req.body.returnTo || "/family");
   } catch (err) {
     console.log(err);
     res.send(err.message);
