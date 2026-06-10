@@ -1234,7 +1234,7 @@ app.post("/edit-reply/:id", async (req, res) => {
       }
     );
 
-    res.redirect("/family");
+    return res.redirect(req.body.returnTo || "/family");
 
   } catch (err) {
     console.log(err);
