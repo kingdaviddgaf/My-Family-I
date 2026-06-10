@@ -1192,6 +1192,7 @@ app.get("/edit-reply/:id", async (req, res) => {
       <h1>Edit Reply</h1>
 
       <form method="POST" action="/edit-reply/${reply._id}">
+      <input type="hidden" name="returnTo" value="${req.headers.referer || '/family'}">
 
         <textarea
           name="content"
