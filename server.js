@@ -1460,6 +1460,92 @@ app.post("/messages/:username", async (req, res) => {
   }
 
 });
+app.get("/inbox", async (req, res) => {
+
+  if (!req.user) {
+    return res.redirect("/login");
+  }
+
+  try {
+
+    const messages = await Message.find({
+      $or: [
+        { sender: req.user.username },
+        { receiver: req.user.username }
+      ]
+    });
+
+    let users = [];
+
+    messages.forEach(message => {
+
+      const otherUser =
+        message.sender === req.user.username
+          ? message.receiver
+          : message.sender;
+
+      if (!users.includes(otherUser)) {
+        users.push(otherUser);
+      }
+
+    });
+
+    let inboxHtml = "";
+
+    users.forEach(user => {
+
+      inboxHtml += `
+        <div style="
+          background:#1e293b;
+          padding:10px;
+          margin:10px 0;
+          border-radius:8px;
+        ">
+          <a
+            href="/messages/${user}"
+            style="
+              color:#60a5fa;
+              text-decoration:none;
+            "
+          >
+            💬 ${user}
+          </a>
+        </div>
+      `;
+
+    });
+
+    res.send(`
+      <html>
+      <body style="
+        font-family:Arial;
+        background:#0f172a;
+        color:white;
+        max-width:700px;
+        margin:auto;
+        padding:20px;
+      ">
+
+      <h1>Inbox</h1>
+
+      <a href="/family">
+        Back To Family
+      </a>
+
+      <hr>
+
+      ${inboxHtml || "<p>No conversations yet.</p>"}
+
+      </body>
+      </html>
+    `);
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
