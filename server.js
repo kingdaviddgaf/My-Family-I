@@ -759,6 +759,11 @@ ${isFollowing ? `
 `}
 
 ` : ""}
+<a href="/messages/${encodeURIComponent(user.username)}">
+  💬 Message
+</a>
+
+<br><br>
 ${req.user.username === user.username ? `
 <a href="/edit-profile/${encodeURIComponent(user.username)}">
   Edit Profile
