@@ -1343,6 +1343,94 @@ app.post("/follow/:username", async (req, res) => {
     res.send(err.message);
   }
 });
+app.get("/messages/:username", async (req, res) => {
+
+  if (!req.user) {
+    return res.redirect("/login");
+  }
+
+  try {
+
+    const otherUser = req.params.username;
+
+    const messages = await Message.find({
+      $or: [
+        {
+          sender: req.user.username,
+          receiver: otherUser
+        },
+        {
+          sender: otherUser,
+          receiver: req.user.username
+        }
+      ]
+    }).sort({ createdAt: 1 });
+
+    let messagesHtml = "";
+
+    messages.forEach(message => {
+
+      messagesHtml += `
+        <div style="
+          padding:10px;
+          margin:10px 0;
+          background:#1e293b;
+          border-radius:8px;
+        ">
+          <strong>${message.sender}</strong>
+          <p>${message.content}</p>
+        </div>
+      `;
+
+    });
+
+    res.send(`
+      <html>
+      <body style="
+        font-family:Arial;
+        background:#0f172a;
+        color:white;
+        max-width:700px;
+        margin:auto;
+        padding:20px;
+      ">
+
+      <h1>Chat with ${otherUser}</h1>
+
+      <a href="/profile/${otherUser}">
+        Back To Profile
+      </a>
+
+      <hr>
+
+      ${messagesHtml}
+
+      <form method="POST" action="/messages/${otherUser}">
+
+        <textarea
+          name="content"
+          placeholder="Type a message..."
+          required
+        ></textarea>
+
+        <br><br>
+
+        <button type="submit">
+          Send Message
+        </button>
+
+      </form>
+
+      </body>
+      </html>
+    `);
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
