@@ -1506,30 +1506,47 @@ app.get("/inbox", async (req, res) => {
     });
 
     let inboxHtml = "";
+users.forEach(user => {
 
-    users.forEach(user => {
+  const lastMessage = messages
+    .filter(message =>
+      message.sender === user ||
+      message.receiver === user
+    )
+    .sort((a, b) =>
+      new Date(b.createdAt) - new Date(a.createdAt)
+    )[0];
 
-      inboxHtml += `
-        <div style="
-          background:#1e293b;
-          padding:10px;
-          margin:10px 0;
-          border-radius:8px;
-        ">
-          <a
-            href="/messages/${user}"
-            style="
-              color:#60a5fa;
-              text-decoration:none;
-            "
-          >
-            💬 ${user}
-          </a>
-        </div>
-      `;
+  inboxHtml += `
+    <div style="
+      background:#1e293b;
+      padding:10px;
+      margin:10px 0;
+      border-radius:8px;
+    ">
+      <a
+        href="/messages/${user}"
+        style="
+          color:#60a5fa;
+          text-decoration:none;
+          font-weight:bold;
+        "
+      >
+        💬 ${user}
+      </a>
 
-    });
+      <p style="
+        color:#cbd5e1;
+        margin-top:5px;
+      ">
+        ${lastMessage ? lastMessage.content : ""}
+      </p>
 
+    </div>
+  `;
+
+});
+    
     res.send(`
       <html>
       <body style="
