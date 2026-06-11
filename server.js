@@ -498,6 +498,21 @@ textarea{
 <body>  
 
   <h1>MY FAMILY ❤️</h1>
+  <a
+  href="/inbox"
+  style="
+    color:white;
+    background:#3b82f6;
+    padding:8px 12px;
+    border-radius:8px;
+    text-decoration:none;
+    display:inline-block;
+    margin-bottom:20px;
+    margin-right:10px;
+  "
+>
+  💬 Inbox
+</a>
 
 <a
   href="/logout"
