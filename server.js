@@ -1431,6 +1431,30 @@ app.get("/messages/:username", async (req, res) => {
   }
 
 });
+app.post("/messages/:username", async (req, res) => {
+
+  if (!req.user) {
+    return res.redirect("/login");
+  }
+
+  try {
+
+    const message = new Message({
+      sender: req.user.username,
+      receiver: req.params.username,
+      content: req.body.content
+    });
+
+    await message.save();
+
+    res.redirect(`/messages/${req.params.username}`);
+
+  } catch (err) {
+    console.log(err);
+    res.send(err.message);
+  }
+
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
