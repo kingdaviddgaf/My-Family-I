@@ -1492,18 +1492,22 @@ app.get("/inbox", async (req, res) => {
 
     let users = [];
 
-    messages.forEach(message => {
+messages
+  .sort((a, b) =>
+    new Date(b.createdAt) - new Date(a.createdAt)
+  )
+  .forEach(message => {
 
-      const otherUser =
-        message.sender === req.user.username
-          ? message.receiver
-          : message.sender;
+    const otherUser =
+      message.sender === req.user.username
+        ? message.receiver
+        : message.sender;
 
-      if (!users.includes(otherUser)) {
-        users.push(otherUser);
-      }
+    if (!users.includes(otherUser)) {
+      users.push(otherUser);
+    }
 
-    });
+  });
 
     let inboxHtml = "";
 users.forEach(user => {
