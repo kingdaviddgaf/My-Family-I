@@ -1530,6 +1530,12 @@ users.forEach(user => {
     .sort((a, b) =>
       new Date(b.createdAt) - new Date(a.createdAt)
     )[0];
+  const unreadCount = messages.filter(
+  message =>
+    message.sender === user &&
+    message.receiver === req.user.username &&
+    message.read === false
+).length;
 
   inboxHtml += `
     <div style="
