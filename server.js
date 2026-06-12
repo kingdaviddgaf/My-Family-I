@@ -1372,6 +1372,16 @@ app.get("/messages/:username", async (req, res) => {
   try {
 
     const otherUser = req.params.username;
+    await Message.updateMany(
+  {
+    sender: otherUser,
+    receiver: req.user.username,
+    read: false
+  },
+  {
+    read: true
+  }
+);
 
     const messages = await Message.find({
       $or: [
