@@ -1553,6 +1553,9 @@ users.forEach(user => {
         "
       >
         💬 ${user}
+${unreadCount > 0
+  ? `<span style="color:red"> (${unreadCount})</span>`
+  : ""}
       </a>
 
       <p style="
