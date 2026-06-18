@@ -1601,6 +1601,22 @@ ${unreadCount > 0
   }
 
 });
+app.get("/fix-messages", async (req, res) => {
+
+  const result = await Message.updateMany(
+    {
+      read: { $exists: false }
+    },
+    {
+      $set: {
+        read: false
+      }
+    }
+  );
+
+  res.send(`Updated ${result.modifiedCount} messages`);
+
+});
 app.listen(PORT, () => {
   console.log("Server running on port " + PORT);
 });
